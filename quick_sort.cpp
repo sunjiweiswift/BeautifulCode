@@ -29,10 +29,14 @@ void quickSort(int left, int right, vector<int>& arr)
     quickSort(left, pos - 1, arr);
     quickSort(pos + 1, right, arr);
 }
+void quickSort(vector<int>& arr)
+{
+    quickSort(0, arr.size(), arr);
+}
 int main()
 {
     vector<int> arr { 5, 6, 8, 3, 2, 7, 1, 9 };
-    quickSort(0, arr.size(), arr);
+    quickSort(arr);
     for (int i : arr) {
         cout << i << endl;
     }

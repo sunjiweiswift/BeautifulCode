@@ -1,2 +1,3 @@
 # Sort Algorithm
 quickSort
+heapSort
