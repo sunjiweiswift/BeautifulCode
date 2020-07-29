@@ -1,1 +1,2 @@
-# Sortalgorithm-
+# Sort Algorithm
+quickSort
