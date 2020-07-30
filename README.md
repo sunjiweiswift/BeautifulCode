@@ -1,3 +1,3 @@
-# Sort Algorithm
+# Common Interview Algorithms 
 quickSort
 heapSort
