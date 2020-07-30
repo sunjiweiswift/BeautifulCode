@@ -13,18 +13,7 @@ void mergeSort(vector<int>& arr)
     vector<int> rightArr(arr.begin() + mid, arr.end());
     mergeSort(leftArr);
     mergeSort(rightArr);
-    // int i = 0;
-    // int j = 0;
-    // int k = 0;
-    // while (i < leftArr.size() && j < rightArr.size()) {
-    //     arr[k++] = leftArr[i] < rightArr[j] ? leftArr[i++] : rightArr[j++];
-    // }
-    // while (i < leftArr.size()) {
-    //     arr[k++] = leftArr[i++];
-    // }
-    // while (j < rightArr.size()) {
-    //     arr[k++] = rightArr[j++];
-    // }
+
     vector<int>::iterator leftIter = leftArr.begin();
     vector<int>::iterator rightIter = rightArr.begin();
     vector<int>::iterator arrIter = arr.begin();
