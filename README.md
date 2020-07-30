@@ -1,3 +1,5 @@
-# Common Interview Algorithms 
+# Common Interview Algorithms
 quickSort
 heapSort
+mergeSort
+reverseListNode
