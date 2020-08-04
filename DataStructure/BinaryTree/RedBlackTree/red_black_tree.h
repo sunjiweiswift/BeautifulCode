@@ -5,7 +5,17 @@ typedef enum {
     BLACK
 } Color;
 template <typename Type>
-struct RBTreeNode {
+class RBTreeNode {
+public:
+    RBTreeNode(Type key)
+        : left(nullptr)
+        , right(nullptr)
+        , parent(nullptr)
+        , key(key)
+    {
+    }
+
+public:
     Color color;
     Type key;
     RBTreeNode* left;
