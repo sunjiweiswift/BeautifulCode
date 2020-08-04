@@ -20,7 +20,7 @@ void adjust(vector<int>& arr, int parent, int length)
     }
 }
 
-void heapSort(vector<int>& arr)
+void HeapSort(vector<int>& arr)
 {
     // Build big top heap
     for (int i = arr.size() / 2 - 1; i >= 0; i--) {
@@ -36,7 +36,7 @@ void heapSort(vector<int>& arr)
 int main()
 {
     vector<int> arr { 5, 6, 8, 3, 2, 7, 1, 9 };
-    heapSort(arr);
+    HeapSort(arr);
     for (int i : arr) {
         cout << i << endl;
     }
