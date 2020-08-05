@@ -1,3 +1,5 @@
+#ifndef _SHARED_PTR_H_
+#define _SHARED_PTR_H_
 template <typename T>
 class ShardPtr {
 public:
@@ -5,16 +7,16 @@ public:
         : ptr_(ptr)
     {
         if (ptr != nullptr) {
-            refCount_ = new size_t(1);
+            refCount_ = new int(1);
         } else {
-            refCount_ = new size_t(0);
+            refCount_ = new int(0);
         }
     }
     ~ShardPtr()
     {
         if (--(*this->refCount_) == 0 && ptr_ != nullptr) {
             delete this->ptr_;
-            delete this->refCount_
+            delete this->refCount_;
         }
     }
     ShardPtr(const ShardPtr<T>& other) // Copy Constructor
@@ -25,7 +27,7 @@ public:
             (*this->refCount_)++;
         }
     }
-    ShardPtr& operator=(const ShardPtr& ohter) // Copy Assignment operator
+    ShardPtr& operator=(const ShardPtr& other) // Copy Assignment operator
     {
         if (this == &other) {
             return *this;
@@ -35,18 +37,15 @@ public:
             delete refCount_;
         }
         ++*other.refCount_;
-        this->ptr_ = ohter.ptr_;
-        this->refCount_ = ohter.refCount_;
+        this->ptr_ = other.ptr_;
+        this->refCount_ = other.refCount_;
         return *this;
     }
     T& operator*()
     {
-        if (this->refCount_ == 0) {
-            return (T*)0;
-        }
         return *this->ptr_;
     }
-    T* operator->()
+    T& operator->()
     {
         if (this->refCount_ == 0) {
             return 0;
@@ -57,4 +56,5 @@ public:
 private:
     T* ptr_;
     int* refCount_;
-}
+};
+#endif
