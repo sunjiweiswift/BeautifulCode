@@ -1,9 +1,9 @@
 #ifndef SHARED_PTR_H
 #define SHARED_PTR_H
 template <typename T>
-class ShardPtr {
+class SharedPtr {
 public:
-    ShardPtr(T* ptr = nullptr)
+    SharedPtr(T* ptr = nullptr)
         : ptr_(ptr)
     {
         if (ptr != nullptr) {
@@ -12,14 +12,14 @@ public:
             refCount_ = new int(0);
         }
     }
-    ~ShardPtr()
+    ~SharedPtr()
     {
         if (--(*this->refCount_) == 0 && ptr_ != nullptr) {
             delete this->ptr_;
             delete this->refCount_;
         }
     }
-    ShardPtr(const ShardPtr<T>& other) // Copy Constructor
+    SharedPtr(const SharedPtr<T>& other) // Copy Constructor
     {
         if (this != &other) {
             this->ptr_ = other.ptr_;
@@ -27,7 +27,7 @@ public:
             (*this->refCount_)++;
         }
     }
-    ShardPtr& operator=(const ShardPtr& other) // Copy Assignment operator
+    SharedPtr& operator=(const SharedPtr& other) // Copy Assignment operator
     {
         if (this == &other) {
             return *this;
