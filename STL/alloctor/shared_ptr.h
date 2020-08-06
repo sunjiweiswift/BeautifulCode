@@ -1,5 +1,5 @@
-#ifndef _SHARED_PTR_H_
-#define _SHARED_PTR_H_
+#ifndef SHARED_PTR_H
+#define SHARED_PTR_H
 template <typename T>
 class ShardPtr {
 public:

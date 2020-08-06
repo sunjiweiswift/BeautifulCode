@@ -1,5 +1,5 @@
-#ifndef _RED_BLACK_H_
-#define _RED_BLACK_H_
+#ifndef RED_BLACH_H
+#define RED_BLACH_H
 typedef enum {
     RED = 0,
     BLACK

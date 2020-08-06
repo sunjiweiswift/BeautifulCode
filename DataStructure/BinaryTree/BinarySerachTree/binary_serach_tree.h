@@ -1,5 +1,5 @@
-#ifndef _BINARY_SERACH_TREE_H_
-#define _BINARY_SERACH_TREE_H_
+#ifndef BINARY_SERACH_TREE_H
+#define BINARY_SERACH_TREE_H
 
 template <typename Type>
 class BSTNode {

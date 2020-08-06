@@ -1,5 +1,5 @@
-#ifndef _UNIQUE_PTR_H_
-#define _UNIQUE_PTR_H_
+#ifndef UNIQUE_PTR_H
+#define UNIQUE_PTR_H
 template <typename T>
 class UniquePtr {
 public:
