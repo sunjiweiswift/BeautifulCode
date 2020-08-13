@@ -1,6 +1,7 @@
 #ifndef SINGLETON_H
 #define SINGLETON_H
-
+// 懒汉模式关键-使用时实例化 需要加锁
+// 饿汉模式的关键-初始化即实例化 不需要加锁
 #include <mutex>
 
 template <typename T>
