@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
-
+// https://www.cnblogs.com/fan1-happy/p/11166182.html
 using namespace std;
 
 int Manacher(string& input)
