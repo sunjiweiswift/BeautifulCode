@@ -22,39 +22,39 @@ struct ListNode {
     }
 };
 
-void RemoveNthNode(ListNode* head, int n)
+ListNode* RemoveNthNode(ListNode* head, int n)
 {
-    if (head == nullptr) {
-        return;
+    if (head == nullptr || n == 0) {
+        return nullptr;
     }
-    ListNode* fast = head;
-    ListNode* slow = head;
-    for (size_t i = 0; i <= n; i++) {
-        if (fast == nullptr) {
-            break;
-        }
+    ListNode* dummy = new ListNode(-1);
+    dummy->next = head;
+    ListNode* fast = dummy;
+    ListNode* slow = dummy;
+    for (int i = 0; i < n; i++) {
         fast = fast->next;
     }
-    while (fast != nullptr) {
+    while (fast->next) {
         fast = fast->next;
         slow = slow->next;
     }
-    ListNode* deleteNode = slow->next;
     slow->next = slow->next->next;
-    delete deleteNode;
+    ListNode* res = dummy->next;
+    delete dummy;
+    return res;
 }
 
 int main()
 {
     ListNode* head = new ListNode(0);
     ListNode* pre = head;
-    for (size_t i = 1; i < 100; i++) {
+    for (size_t i = 1; i < 20; i++) {
         ListNode* node = new ListNode(i);
         pre->next = node;
         pre = node;
     }
-    RemoveNthNode(head, 3);
-    ListNode* node = head;
+
+    ListNode* node = RemoveNthNode(head, 2);
     while (node != nullptr) {
         cout << node->val << endl;
         node = node->next;
