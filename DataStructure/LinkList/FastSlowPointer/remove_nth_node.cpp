@@ -39,9 +39,9 @@ ListNode* RemoveNthNode(ListNode* head, int n)
         slow = slow->next;
     }
     slow->next = slow->next->next;
-    ListNode* res = dummy->next;
+    ListNode* newHead = dummy->next;
     delete dummy;
-    return res;
+    return newHead;
 }
 
 int main()
