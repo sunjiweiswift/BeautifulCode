@@ -1,4 +1,4 @@
-# Common Interview Algorithms
+# Beatiful Code
 quickSort
 heapSort
 mergeSort
