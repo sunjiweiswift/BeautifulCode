@@ -9,41 +9,49 @@ public:
     LFUCache(size_t capacity, Value error)
         : capacity_(capacity)
         , error_(error)
+        , size_(0)
+        , minFreq_(0)
     {
-        head_ = new CacheNode();
-        tail_ = new CacheNode();
-        head_->next = tail_;
-        tail_->prev = head_;
     }
 
     Value GetValue(Key key)
     {
-        auto iter = record_.find(key);
-        if (iter == record_.end()) {
+        auto iter = recordCache_.find(key);
+        if (iter == recordCache_.end()) {
             return error_;
-        } else {
-            MoveToHead(iter->second);
-            return iter->second->value;
         }
+        UpdateFreq(iter->second);
+        return iter->second->value;
     }
-    s void PutValue(Key key, Value value)
+    void PutValue(Key key, Value value)
     {
-        auto iter = record_.find(key);
-        if (iter != record_.end()) {
+        if (capacity_ == 0) {
+            return;
+        }
+        auto iter = recordCache_.find(key);
+        if (iter != recordCache_.end()) {
             iter->second->value = value;
-            MoveToHead(iter->second);
+            UpdateFreq(iter->second);
         } else {
-            if (capacity_ == record_.size()) {
-                // Delete tail->prev node
-                CacheNode* needDel = tail_->prev;
-                needDel->prev->next = needDel->next;
-                needDel->next->prev = needDel->prev;
-                record_.erase(needDel->key);
-                delete needDel;
+            if (size_ == capacity_) {
+                // Remove
+                DoublyLinkedList* minFreqList = recordFreq_[minFreq_];
+                CacheNode* needRemove = minFreqList->GetBack();
+                minFreqList->RemoveNode(needRemove);
+                recordCache_.erase(needRemove->key);
+                // delete needRemove;
+                size_--;
             }
-            CacheNode* cache = new CacheNode(key, value);
-            AddCache(cache);
-            record_.insert(std::pair<Key, CacheNode*>(key, cache));
+            CacheNode* newNode = new CacheNode(key, value);
+            recordCache_.insert(std::pair<Key, CacheNode*>(key, newNode));
+            auto iter = recordFreq_.find(1);
+            if (iter == recordFreq_.end()) {
+                DoublyLinkedList* list = new DoublyLinkedList();
+                recordFreq_.insert(std::pair<size_t, DoublyLinkedList*>(1, list));
+            }
+            recordFreq_[1]->AddNode(newNode);
+            size_++;
+            minFreq_ = 1;
         }
     }
 
@@ -64,32 +72,69 @@ private:
         CacheNode* prev;
         CacheNode* next;
     };
-    void MoveToHead(CacheNode* cache)
-    {
-        if (cache != head_->next) {
-            // cache->prev --- cache->next
-            cache->prev->next = cache->next;
-            cache->next->prev = cache->prev;
-            // add cache
-            AddCache(cache);
+    class DoublyLinkedList {
+    public:
+        DoublyLinkedList()
+        {
+            head_ = new CacheNode();
+            tail_ = new CacheNode();
+            head_->next = tail_;
+            tail_->prev = head_;
         }
-    }
-    void AddCache(CacheNode* cache)
+        ~DoublyLinkedList()
+        {
+            delete head_;
+            delete tail_;
+        }
+        void RemoveNode(CacheNode* node)
+        {
+            node->prev->next = node->next;
+            node->next->prev = node->prev;
+        }
+        void AddNodeFront(CacheNode* node)
+        {
+            node->next = head_->next;
+            node->prev = head_;
+            head_->next->prev = node;
+            head_->next = node;
+        }
+        CacheNode* GetBack()
+        {
+            return Empty() ? nullptr : tail_->prev;
+        }
+        bool Empty()
+        {
+            return head_->next == tail_;
+        }
+
+    private:
+        CacheNode* head_;
+        CacheNode* tail_;
+    };
+    void UpdateFreq(CacheNode* node)
     {
-        cache->next = head_->next;
-        cache->prev = head_;
-        head_->next = cache;
-        cache->next->prev = cache;
+        // size_t freq = node->freq;
+        auto iter = recordFreq_.find(node->freq);
+        iter->second->RemoveNode(node);
+        if (node->freq == minFreq_ && iter->second->Empty()) {
+            minFreq_++;
+        }
+        node->freq++;
+        iter = recordFreq_.find(node->freq);
+        if (iter == recordFreq_.end()) {
+            DoublyLinkedList* list = new DoublyLinkedList();
+            recordFreq_.insert(std::pair<size_t, DoublyLinkedList*>(node->freq, list));
+        }
+        iter->second->AddNodeFront(node);
     }
 
 private:
-    CacheNode* head_;
-    CacheNode* tail_;
     Value error_;
     size_t capacity_;
+    size_t size_;
     size_t minFreq_;
-    // std::unordered_map<Key, List<int>> > countSort_;
-    std::unordered_map<Key, CacheNode > countSort_;
+    std::unordered_map<Key, CacheNode> recordCache_;
+    std::unordered_map<size_t, DoublyLinkedList*> recordFreq_;
 };
 
 #endif
