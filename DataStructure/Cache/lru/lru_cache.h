@@ -9,16 +9,16 @@ public:
         : capacity_(capacity)
         , error_(error)
     {
-        head_ = new Cache;
-        tail_ = new Cache;
+        head_ = new CacheNode();
+        tail_ = new CacheNode();
         head_->next = tail_;
         tail_->prev = head_;
     }
     ~LRUCache()
     {
-        Cache* cache = head_;
+        CacheNode* cache = head_;
         while (cache != nullptr) {
-            Cache* nextCache = cache->next;
+            CacheNode* nextCache = cache->next;
             delete cache;
             cache = nextCache;
         }
@@ -44,22 +44,23 @@ public:
             MoveToHead(iter->second);
         } else {
             if (capacity_ == record_.size()) {
-                Cache* needDel = tail_->prev;
-                needDel->prev->next = tail_;
-                tail_->prev = needDel;
+                // Delete tail->prev node
+                CacheNode* needDel = tail_->prev;
+                needDel->prev->next = needDel->next;
+                needDel->next->prev = needDel->prev;
                 record_.erase(needDel->key);
                 delete needDel;
             }
-            Cache* cache = new Cache(key, value);
+            CacheNode* cache = new CacheNode(key, value);
             AddCache(cache);
-            record_.insert(std::pair<Key, Cache*>(key, cache));
+            record_.insert(std::pair<Key, CacheNode*>(key, cache));
         }
     }
 
 private:
-    struct Cache {
-        Cache() = default;
-        Cache(Key key, Value value)
+    struct CacheNode {
+        CacheNode() = default;
+        CacheNode(Key key, Value value)
             : key(key)
             , value(value)
             , prev(nullptr)
@@ -68,10 +69,10 @@ private:
         }
         Key key;
         Value value;
-        Cache* prev;
-        Cache* next;
+        CacheNode* prev;
+        CacheNode* next;
     };
-    void MoveToHead(Cache* cache)
+    void MoveToHead(CacheNode* cache)
     {
         if (cache != head_->next) {
             // cache->prev --- cache->next
@@ -81,7 +82,7 @@ private:
             AddCache(cache);
         }
     }
-    void AddCache(Cache* cache)
+    void AddCache(CacheNode* cache)
     {
         cache->next = head_->next;
         cache->prev = head_;
@@ -90,11 +91,11 @@ private:
     }
 
 private:
-    Cache* head_;
-    Cache* tail_;
+    CacheNode* head_;
+    CacheNode* tail_;
     Value error_;
     size_t capacity_;
-    std::unordered_map<Key, Cache*> record_;
+    std::unordered_map<Key, CacheNode*> record_;
 };
 
 #endif
