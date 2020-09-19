@@ -14,17 +14,6 @@ public:
         head_->next = tail_;
         tail_->prev = head_;
     }
-    ~LRUCache()
-    {
-        CacheNode* cache = head_;
-        while (cache != nullptr) {
-            CacheNode* nextCache = cache->next;
-            delete cache;
-            cache = nextCache;
-        }
-        delete head_;
-        record_.clear();
-    }
 
     Value GetValue(Key key)
     {
@@ -35,7 +24,7 @@ public:
             MoveToHead(iter->second);
             return iter->second->value;
         }
-    }
+    }s
     void PutValue(Key key, Value value)
     {
         auto iter = record_.find(key);
@@ -45,11 +34,11 @@ public:
         } else {
             if (capacity_ == record_.size()) {
                 // Delete tail->prev node
-                CacheNode* needDel = tail_->prev;
-                needDel->prev->next = needDel->next;
-                needDel->next->prev = needDel->prev;
-                record_.erase(needDel->key);
-                delete needDel;
+                CacheNode* needRemove = tail_->prev;
+                needRemove->prev->next = needRemove->next;
+                needRemove->next->prev = needRemove->prev;
+                record_.erase(needRemove->key);
+                delete needRemove;
             }
             CacheNode* cache = new CacheNode(key, value);
             AddCache(cache);
