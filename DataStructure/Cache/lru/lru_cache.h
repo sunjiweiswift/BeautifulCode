@@ -24,7 +24,7 @@ public:
             MoveToHead(iter->second);
             return iter->second->value;
         }
-    }s
+    }
     void PutValue(Key key, Value value)
     {
         auto iter = record_.find(key);
