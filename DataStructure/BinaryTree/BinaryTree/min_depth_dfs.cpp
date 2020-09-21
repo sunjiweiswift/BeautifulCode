@@ -31,16 +31,16 @@ int MinDepth(TreeNode* root)
 
 int main()
 {
-//        0
+//        3
 //       / \
-//      1   2
+//      1   4
 //     / \
-//    3   4
-    TreeNode* head = new TreeNode(0);
+//    0   2
+    TreeNode* head = new TreeNode(3);
     head->left = new TreeNode(1);
-    head->right = new TreeNode(2);
-    head->left->left = new TreeNode(3);
-    head->left->left = new TreeNode(4);
+    head->right = new TreeNode(4);
+    head->left->left = new TreeNode(0);
+    head->left->right = new TreeNode(2);
     cout << MinDepth(head) << endl;
     return 0;
 }
