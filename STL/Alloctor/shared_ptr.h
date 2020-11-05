@@ -45,7 +45,7 @@ public:
     {
         return *this->ptr_;
     }
-    T& operator->()
+    T* operator->()
     {
         if (this->refCount_ == 0) {
             return 0;
