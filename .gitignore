@@ -1,2 +1,8 @@
 # Visual Studio Code
 .vscode
+
+# Compiled Object files
+*.o
+
+# Executables
+*.exe
