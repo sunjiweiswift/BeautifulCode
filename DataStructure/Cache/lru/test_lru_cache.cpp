@@ -15,6 +15,5 @@ int main()
     cout << lruCache.GetValue(1) << endl; // 返回 -1 (未找到)
     cout << lruCache.GetValue(3) << endl; // 返回  3
     cout << lruCache.GetValue(4) << endl; // 返回  4
-
     return 0;
 }
