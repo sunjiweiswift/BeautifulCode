@@ -1,17 +1,55 @@
 #ifndef UNION_FIND_H
 #define UNION_FIND_H
+
+#include <unordered_map>
 #include <vector>
+
 using namespace std;
 
-template <typename Type>
+template <typename T>
 class UnionFind {
 public:
-    UnionFind(int n);
-    ~UnionFind();
+    UnionFind() = default;
+    
+    ~UnionFind()
+    {
+        parent_.clear();
+        rank_.clear();
+    }
+
+    void Union(T& a, T& b)
+    {
+        T aRoot = Find(a);
+        T bRoot = Find(b);
+        if (aRoot == bRoot) {
+            return;
+        }
+        if (rank_[aRoot] < rank_[bRoot]) {
+            parent_[aRoot] = bRoot;
+        } else if (rank_[aRoot] > rank_[bRoot]) {
+            parent_[bRoot] = aRoot;
+        } else {
+            parent_[aRoot] = bRoot;
+            rank_[bRoot]++;
+        }
+    }
+
+    T& Find(T& son)
+    {
+        if (parent_[son] != son) {
+            parent_[son] = Find(parent_[son]);
+        }
+        return son;
+    }
+
+    bool isConnected(T& a, T& b)
+    {
+        return Find(a) == Find(b);
+    }
 
 private:
-    int count_ = 0;
-    vector<T> variables_;
+    unordered_map<T, T> parent_;
+    unordered_map<T, int> rank_;
 };
 
 #endif
