@@ -1,13 +1,13 @@
 #ifndef UNION_FIND_H
 #define UNION_FIND_H
-class UnionFind
-{
-private:
-    /* data */
+template <typename Type>
+class UnionFind {
 public:
-    UnionFind(/* args */);
+    UnionFind(int n);
     ~UnionFind();
-};
 
+private:
+    int count_ = 0;
+};
 
 #endif
