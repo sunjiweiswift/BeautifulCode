@@ -10,15 +10,21 @@ template <typename T>
 class UnionFind {
 public:
     UnionFind() = default;
-    
+
     ~UnionFind()
     {
         parent_.clear();
         rank_.clear();
     }
 
-    void Union(T& a, T& b)
+    void Union(T a, T b)
     {
+        if (parent_.find(a) == parent_.end()) {
+            parent_[a] = a;
+        }
+        if (parent_.find(b) == parent_.end()) {
+            parent_[b] = b;
+        }
         T aRoot = Find(a);
         T bRoot = Find(b);
         if (aRoot == bRoot) {
@@ -34,15 +40,12 @@ public:
         }
     }
 
-    T& Find(T& son)
+    T Find(T son)
     {
-        if (parent_[son] != son) {
-            parent_[son] = Find(parent_[son]);
-        }
-        return son;
+        return parent_[son] == son ? son : Find(parent_[son]);
     }
 
-    bool isConnected(T& a, T& b)
+    bool isConnected(T a, T b)
     {
         return Find(a) == Find(b);
     }
