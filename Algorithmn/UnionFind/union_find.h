@@ -42,7 +42,10 @@ public:
 
     T Find(T son)
     {
-        return parent_[son] == son ? son : Find(parent_[son]);
+        if (parent_[son] != son) {
+            parent_[son] = Find(son);
+        }
+        return parent_[son];
     }
 
     bool isConnected(T a, T b)
