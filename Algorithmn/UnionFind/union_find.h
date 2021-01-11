@@ -40,7 +40,7 @@ public:
 
     T Find(T son) {
         if (parent_[son] != son) {
-            parent_[son] = Find(son);
+            parent_[son] = Find(parent_[son]);
         }
         return parent_[son];
     }
