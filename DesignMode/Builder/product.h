@@ -6,22 +6,10 @@
 
 class Product {
 public:
-    void SetA(std::string str)
-    {
-        a_ = str;
-    }
-    void SetB(std::string str)
-    {
-        b_ = str;
-    }
-    void SetC(std::string str)
-    {
-        c_ = str;
-    }
-    void Show()
-    {
-        std::cout << "product has" << a_ << b_ << c_ << std::endl;
-    }
+    void SetA(std::string str) { a_ = str; }
+    void SetB(std::string str) { b_ = str; }
+    void SetC(std::string str) { c_ = str; }
+    void Show() { std::cout << "product has" << a_ << b_ << c_ << std::endl; }
 
 private:
     std::string a_;

@@ -2,7 +2,7 @@
 #define ADAPT_H
 class Target {
 public:
-    virtual ~Target() { }
+    virtual ~Target() {}
     virtual void Request() = 0;
 };
 

@@ -4,13 +4,7 @@
 template <typename Type>
 class BSTNode {
 public:
-    BSTNode(Type key)
-        : key(key)
-        , left(nullptr)
-        , right(nullptr)
-        , parent(nullptr)
-    {
-    }
+    BSTNode(Type key) : key(key), left(nullptr), right(nullptr), parent(nullptr) {}
 
 public:
     Type key;

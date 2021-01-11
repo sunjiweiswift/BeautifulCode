@@ -1,20 +1,14 @@
-#include "singleton.h"
 #include <iostream>
+
+#include "singleton.h"
 
 class Test {
 public:
-    Test()
-    {
-        std::cout << "Test Constructor" << std::endl;
-    }
-    ~Test()
-    {
-        std::cout << "Test Destructor " << std::endl;
-    }
+    Test() { std::cout << "Test Constructor" << std::endl; }
+    ~Test() { std::cout << "Test Destructor " << std::endl; }
 };
 
-int main()
-{
+int main() {
     Test* ptr1 = Singleton<Test>::GetInstance();
     Test* ptr2 = Singleton<Test>::GetInstance();
     if (ptr1 == ptr2) {

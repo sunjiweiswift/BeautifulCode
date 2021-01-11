@@ -1,7 +1,6 @@
 #include "director.h"
 
-int main()
-{
+int main() {
     ConcreteBuilder* builder = new ConcreteBuilder();
     Director director;
     director.SetBuilder(builder);

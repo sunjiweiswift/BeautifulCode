@@ -3,18 +3,13 @@
 #include <iostream>
 
 template <typename Type>
-BinarySerachTree<Type>::BinarySerachTree()
-{
-}
+BinarySerachTree<Type>::BinarySerachTree() {}
 
 template <typename Type>
-BinarySerachTree<Type>::~BinarySerachTree()
-{
-}
+BinarySerachTree<Type>::~BinarySerachTree() {}
 
 template <typename Type>
-void BinarySerachTree<Type>::Inorder(BSTNode<Type>* x)
-{
+void BinarySerachTree<Type>::Inorder(BSTNode<Type>* x) {
     if (x != Nil) {
         Inorder(x->left);
         std::cout << x->key << std::endl;
@@ -23,8 +18,7 @@ void BinarySerachTree<Type>::Inorder(BSTNode<Type>* x)
 }
 
 template <typename Type>
-BSTNode<Type>* BinarySerachTree<Type>::Search(Type key, BSTNode<Type>* node)
-{
+BSTNode<Type>* BinarySerachTree<Type>::Search(Type key, BSTNode<Type>* node) {
     if (node == Nil || key == node->key) {
         return node;
     }
@@ -36,8 +30,7 @@ BSTNode<Type>* BinarySerachTree<Type>::Search(Type key, BSTNode<Type>* node)
 }
 
 template <typename Type>
-BSTNode<Type>* BinarySerachTree<Type>::Search2(Type key, BSTNode<Type>* node)
-{
+BSTNode<Type>* BinarySerachTree<Type>::Search2(Type key, BSTNode<Type>* node) {
     while (node == Nil && key != node->key) {
         if (key < node->key) {
             node = node->left;
@@ -49,8 +42,7 @@ BSTNode<Type>* BinarySerachTree<Type>::Search2(Type key, BSTNode<Type>* node)
 }
 
 template <typename Type>
-BSTNode<Type>* BinarySerachTree<Type>::Minimum(BSTNode<Type>* node)
-{
+BSTNode<Type>* BinarySerachTree<Type>::Minimum(BSTNode<Type>* node) {
     while (node->left != Nil) {
         node = node->left;
     }
@@ -58,8 +50,7 @@ BSTNode<Type>* BinarySerachTree<Type>::Minimum(BSTNode<Type>* node)
 }
 
 template <typename Type>
-BSTNode<Type>* BinarySerachTree<Type>::Maximum(BSTNode<Type>* node)
-{
+BSTNode<Type>* BinarySerachTree<Type>::Maximum(BSTNode<Type>* node) {
     while (node->right != Nil) {
         node = node->right;
     }
@@ -67,8 +58,7 @@ BSTNode<Type>* BinarySerachTree<Type>::Maximum(BSTNode<Type>* node)
 }
 
 template <typename Type>
-void BinarySerachTree<Type>::Insert(BSTNode<Type>* z)
-{
+void BinarySerachTree<Type>::Insert(BSTNode<Type>* z) {
     BSTNode<Type>* y = Nil;
     BSTNode<Type>* x = root;
     while (x != Nil) {
@@ -89,7 +79,6 @@ void BinarySerachTree<Type>::Insert(BSTNode<Type>* z)
     }
 }
 
-int main()
-{
+int main() {
     return 0;
 }

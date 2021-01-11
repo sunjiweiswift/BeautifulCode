@@ -5,12 +5,8 @@ using namespace std;
 
 class Solution {
 public:
-    static bool cmp(pair<int, int>& m, pair<int, int>& n)
-    {
-        return m.second > n.second;
-    }
-    vector<int> topKFrequent(vector<int>& nums, int k)
-    {
+    static bool cmp(pair<int, int>& m, pair<int, int>& n) { return m.second > n.second; }
+    vector<int> topKFrequent(vector<int>& nums, int k) {
         unordered_map<int, int> record;
         for (int& num : nums) {
             record[num]++;

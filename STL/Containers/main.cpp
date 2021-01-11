@@ -1,6 +1,7 @@
-#include "vector.h"
-#include "string.h"
 #include <iostream>
+
+#include "string.h"
+#include "vector.h"
 int main() {
     String a = "test";
     String b = a;

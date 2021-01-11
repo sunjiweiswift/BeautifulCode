@@ -1,7 +1,6 @@
 #include "abstraction.h"
 
-int main()
-{
+int main() {
     Implementor* implementorA = new ConcreteImplementorA();
     Implementor* implementorB = new ConcreteImplementorB();
     Abstraction* abstrationA = new RefinedAbstraction(implementorA);

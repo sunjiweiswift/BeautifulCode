@@ -3,8 +3,7 @@
 
 using namespace std;
 
-void MergeSort(vector<int>& arr)
-{
+void MergeSort(vector<int>& arr) {
     if (arr.size() == 1) {
         return;
     }
@@ -34,9 +33,8 @@ void MergeSort(vector<int>& arr)
         arrIter++;
     }
 }
-int main()
-{
-    vector<int> arr { 5, 6, 8, 3, 2, 7, 1, 9 };
+int main() {
+    vector<int> arr{5, 6, 8, 3, 2, 7, 1, 9};
     MergeSort(arr);
     for (int i : arr) {
         cout << i << endl;

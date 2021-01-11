@@ -3,17 +3,14 @@
 template <typename T>
 class SharedPtr {
 public:
-    SharedPtr(T* ptr = nullptr)
-        : ptr_(ptr)
-    {
+    SharedPtr(T* ptr = nullptr) : ptr_(ptr) {
         if (ptr != nullptr) {
             refCount_ = new int(1);
         } else {
             refCount_ = new int(0);
         }
     }
-    ~SharedPtr()
-    {
+    ~SharedPtr() {
         if (--(*this->refCount_) == 0 && ptr_ != nullptr) {
             delete this->ptr_;
             delete this->refCount_;
@@ -41,12 +38,8 @@ public:
         this->refCount_ = other.refCount_;
         return *this;
     }
-    T& operator*()
-    {
-        return *this->ptr_;
-    }
-    T* operator->()
-    {
+    T& operator*() { return *this->ptr_; }
+    T* operator->() {
         if (this->refCount_ == 0) {
             return 0;
         }

@@ -5,22 +5,13 @@
 
 class Context {
 public:
-    Context() { }
+    Context() {}
 
-    virtual ~Context()
-    {
-        strategy_ = nullptr;
-    }
+    virtual ~Context() { strategy_ = nullptr; }
 
-    void SetStrategy(Strategy* strategy)
-    {
-        strategy_ = strategy;
-    }
+    void SetStrategy(Strategy* strategy) { strategy_ = strategy; }
 
-    void Algorithm()
-    {
-        strategy_->Algorithm();
-    };
+    void Algorithm() { strategy_->Algorithm(); };
 
 private:
     Strategy* strategy_;

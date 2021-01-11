@@ -5,30 +5,23 @@
 
 class Product {
 public:
-    virtual ~Product() {};
+    virtual ~Product(){};
     virtual void Use() = 0;
 };
 
 class ConcreteProductA : public Product {
 public:
-    void Use() override
-    {
-        std::cout << "Use ConcreteProductA" << std::endl;
-    }
+    void Use() override { std::cout << "Use ConcreteProductA" << std::endl; }
 };
 
 class ConcreteProductB : public Product {
 public:
-    void Use() override
-    {
-        std::cout << "Use ConcreteProductB" << std::endl;
-    }
+    void Use() override { std::cout << "Use ConcreteProductB" << std::endl; }
 };
 
 class SimpleFactory {
 public:
-    Product* CreateProduct(std::string name)
-    {
+    Product* CreateProduct(std::string name) {
         Product* product = nullptr;
         if (name == "A") {
             return new ConcreteProductA();

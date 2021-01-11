@@ -1,7 +1,7 @@
-#include "simple_factory.h"
 #include <string>
-int main()
-{
+
+#include "simple_factory.h"
+int main() {
     SimpleFactory* factory = new SimpleFactory();
     Product* productA = factory->CreateProduct("A");
     Product* productB = factory->CreateProduct("B");

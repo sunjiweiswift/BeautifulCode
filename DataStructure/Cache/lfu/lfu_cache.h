@@ -7,15 +7,9 @@ template <typename Key, typename Value>
 class LFUCache {
 public:
     LFUCache(size_t capacity, Value error)
-        : capacity_(capacity)
-        , error_(error)
-        , size_(0)
-        , minFreq_(0)
-    {
-    }
+            : capacity_(capacity), error_(error), size_(0), minFreq_(0) {}
 
-    Value GetValue(Key key)
-    {
+    Value GetValue(Key key) {
         auto iter = recordCache_.find(key);
         if (iter == recordCache_.end()) {
             return error_;
@@ -23,8 +17,7 @@ public:
         UpdateFreq(iter->second);
         return iter->second->value;
     }
-    void PutValue(Key key, Value value)
-    {
+    void PutValue(Key key, Value value) {
         if (capacity_ == 0) {
             return;
         }
@@ -59,13 +52,7 @@ private:
     struct CacheNode {
         CacheNode() = default;
         CacheNode(Key key, Value value, size_t freq)
-            : key(key)
-            , value(value)
-            , freq(freq)
-            , prev(nullptr)
-            , next(nullptr)
-        {
-        }
+                : key(key), value(value), freq(freq), prev(nullptr), next(nullptr) {}
         Key key;
         Value value;
         size_t freq;
@@ -74,45 +61,34 @@ private:
     };
     class DoublyLinkedList {
     public:
-        DoublyLinkedList()
-        {
+        DoublyLinkedList() {
             head_ = new CacheNode();
             tail_ = new CacheNode();
             head_->next = tail_;
             tail_->prev = head_;
         }
-        ~DoublyLinkedList()
-        {
+        ~DoublyLinkedList() {
             delete head_;
             delete tail_;
         }
-        void RemoveNode(CacheNode* node)
-        {
+        void RemoveNode(CacheNode* node) {
             node->prev->next = node->next;
             node->next->prev = node->prev;
         }
-        void AddNodeFront(CacheNode* node)
-        {
+        void AddNodeFront(CacheNode* node) {
             node->next = head_->next;
             node->prev = head_;
             head_->next->prev = node;
             head_->next = node;
         }
-        CacheNode* GetBack()
-        {
-            return Empty() ? nullptr : tail_->prev;
-        }
-        bool Empty()
-        {
-            return head_->next == tail_;
-        }
+        CacheNode* GetBack() { return Empty() ? nullptr : tail_->prev; }
+        bool Empty() { return head_->next == tail_; }
 
     private:
         CacheNode* head_;
         CacheNode* tail_;
     };
-    void UpdateFreq(CacheNode* node)
-    {
+    void UpdateFreq(CacheNode* node) {
         // Remove from recordFreq
         auto iter = recordFreq_.find(node->freq);
         iter->second->RemoveNode(node);

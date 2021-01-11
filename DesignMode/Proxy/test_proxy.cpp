@@ -1,7 +1,6 @@
 #include "proxy.h"
 
-int main()
-{
+int main() {
     Proxy proxy;
     proxy.Request();
     return 0;

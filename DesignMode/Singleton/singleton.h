@@ -7,8 +7,7 @@
 template <typename T>
 class Singleton {
 public:
-    static T* GetInstance()
-    {
+    static T* GetInstance() {
         if (instance_ == nullptr) {
             std::lock_guard<std::mutex> guard(mutex_);
             if (instance_ == nullptr) {
@@ -18,8 +17,7 @@ public:
         return instance_;
     }
 
-    static bool Destroy()
-    {
+    static bool Destroy() {
         std::lock_guard<std::mutex> guard(mutex_);
         if (instance_ != nullptr) {
             delete instance_;

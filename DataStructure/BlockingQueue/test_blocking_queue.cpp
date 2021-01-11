@@ -1,8 +1,8 @@
-#include "blocking_queue.h"
 #include <iostream>
 
-int main()
-{
+#include "blocking_queue.h"
+
+int main() {
     BlockingQueue<int> que;
     que.Push(1);
     std::cout << "size:" << que.Size() << " " << que.Pop() << std::endl;

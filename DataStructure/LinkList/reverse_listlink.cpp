@@ -5,15 +5,10 @@ using namespace std;
 struct ListNode {
     int val;
     ListNode* next;
-    ListNode(int val)
-        : val(val)
-        , next(nullptr)
-    {
-    }
+    ListNode(int val) : val(val), next(nullptr) {}
 };
 
-ListNode* ReverseListLink(ListNode* root)
-{
+ListNode* ReverseListLink(ListNode* root) {
     ListNode* newHead = new ListNode(0);
     ListNode* curNode = root;
     while (curNode != nullptr) {
@@ -24,8 +19,7 @@ ListNode* ReverseListLink(ListNode* root)
     }
     return newHead->next;
 }
-int main()
-{
+int main() {
     // Generate ListLink 10,9...0
     ListNode* node = new ListNode(10);
     ListNode* root = node;

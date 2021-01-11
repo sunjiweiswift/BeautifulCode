@@ -4,8 +4,7 @@
 
 using namespace std;
 
-void adjust(vector<int>& arr, int parent, int length)
-{
+void adjust(vector<int>& arr, int parent, int length) {
     int left = 2 * parent + 1;
     int right = 2 * parent + 2;
     int newParent = parent;
@@ -21,8 +20,7 @@ void adjust(vector<int>& arr, int parent, int length)
     }
 }
 
-void HeapSort(vector<int>& arr)
-{
+void HeapSort(vector<int>& arr) {
     // Build big top heap
     for (int i = arr.size() / 2 - 1; i >= 0; i--) {
         adjust(arr, i, arr.size());
@@ -34,9 +32,8 @@ void HeapSort(vector<int>& arr)
     }
 }
 
-int main()
-{
-    vector<int> arr { 5, 6, 8, 3, 2, 7, 1, 9 };
+int main() {
+    vector<int> arr{5, 6, 8, 3, 2, 7, 1, 9};
     HeapSort(arr);
     for (int i : arr) {
         cout << i << endl;

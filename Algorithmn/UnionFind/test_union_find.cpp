@@ -1,10 +1,10 @@
-#include "union_find.h"
 #include <iostream>
+
+#include "union_find.h"
 
 using namespace std;
 
-int main()
-{
+int main() {
     UnionFind<int> unionFind;
     unionFind.Union(5, 2);
     unionFind.Union(1, 2);

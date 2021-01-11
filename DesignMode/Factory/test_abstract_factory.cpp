@@ -1,7 +1,6 @@
 #include "abstract_factory.h"
 
-int main()
-{
+int main() {
     AbstractFactory* factory1 = new ConcreteFactory1();
     AbstractFactory* factory2 = new ConcreteFactory2();
     AbstractProductA* productA1 = factory1->CreateProductA();

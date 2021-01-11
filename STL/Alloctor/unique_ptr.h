@@ -3,12 +3,8 @@
 template <typename T>
 class UniquePtr {
 public:
-    explicit UniquePtr(T* ptr = nullptr)
-        : ptr_(ptr)
-    {
-    }
-    ~UniquePtr()
-    {
+    explicit UniquePtr(T* ptr = nullptr) : ptr_(ptr) {}
+    ~UniquePtr() {
         if (this->ptr_ != nullptr) {
             delete this->ptr_;
         }
@@ -17,13 +13,8 @@ public:
     UniquePtr(const UniquePtr& other) = delete;
     UniquePtr operator=(const UniquePtr& other) = delete;
     // Move constructor
-    UniquePtr(UniquePtr&& other)
-        : ptr_(other.ptr_)
-    {
-        other.ptr_ = nullptr;
-    }
-    UniquePtr operator=(UniquePtr&& other)
-    {
+    UniquePtr(UniquePtr&& other) : ptr_(other.ptr_) { other.ptr_ = nullptr; }
+    UniquePtr operator=(UniquePtr&& other) {
         if (other != *this) {
             if (this->ptr_ == nullptr) {
                 delete this->ptr_;
@@ -33,14 +24,8 @@ public:
         }
         return *this;
     }
-    T& operator*() const
-    {
-        return *this->ptr_;
-    }
-    T* operator->() const
-    {
-        return this->ptr_;
-    }
+    T& operator*() const { return *this->ptr_; }
+    T* operator->() const { return this->ptr_; }
 
 private:
     T* ptr_;

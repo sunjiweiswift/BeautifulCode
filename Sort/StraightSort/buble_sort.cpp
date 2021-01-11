@@ -3,8 +3,7 @@
 
 using namespace std;
 
-void StraightSort(vector<int>& arr)
-{
+void StraightSort(vector<int>& arr) {
     for (int i = 1, j; i < arr.size(); i++) {
         int insert = arr[i];
         for (j = i - 1; j >= 0 && arr[j] > insert; j--) {
@@ -14,9 +13,8 @@ void StraightSort(vector<int>& arr)
     }
 }
 
-int main()
-{
-    vector<int> arr { 5, 6, 8, 3, 2, 7, 1, 9 };
+int main() {
+    vector<int> arr{5, 6, 8, 3, 2, 7, 1, 9};
     StraightSort(arr);
     for (int i : arr) {
         cout << i << endl;

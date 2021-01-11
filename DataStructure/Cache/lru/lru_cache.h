@@ -5,18 +5,14 @@
 template <typename Key, typename Value>
 class LRUCache {
 public:
-    LRUCache(size_t capacity, Value error)
-        : capacity_(capacity)
-        , error_(error)
-    {
+    LRUCache(size_t capacity, Value error) : capacity_(capacity), error_(error) {
         head_ = new CacheNode();
         tail_ = new CacheNode();
         head_->next = tail_;
         tail_->prev = head_;
     }
 
-    Value GetValue(Key key)
-    {
+    Value GetValue(Key key) {
         auto iter = record_.find(key);
         if (iter == record_.end()) {
             return error_;
@@ -25,8 +21,7 @@ public:
             return iter->second->value;
         }
     }
-    void PutValue(Key key, Value value)
-    {
+    void PutValue(Key key, Value value) {
         auto iter = record_.find(key);
         if (iter != record_.end()) {
             iter->second->value = value;
@@ -49,20 +44,13 @@ public:
 private:
     struct CacheNode {
         CacheNode() = default;
-        CacheNode(Key key, Value value)
-            : key(key)
-            , value(value)
-            , prev(nullptr)
-            , next(nullptr)
-        {
-        }
+        CacheNode(Key key, Value value) : key(key), value(value), prev(nullptr), next(nullptr) {}
         Key key;
         Value value;
         CacheNode* prev;
         CacheNode* next;
     };
-    void MoveToHead(CacheNode* cache)
-    {
+    void MoveToHead(CacheNode* cache) {
         if (cache != head_->next) {
             // cache->prev --- cache->next
             cache->prev->next = cache->next;
@@ -71,8 +59,7 @@ private:
             AddCache(cache);
         }
     }
-    void AddCache(CacheNode* cache)
-    {
+    void AddCache(CacheNode* cache) {
         cache->next = head_->next;
         cache->prev = head_;
         head_->next = cache;

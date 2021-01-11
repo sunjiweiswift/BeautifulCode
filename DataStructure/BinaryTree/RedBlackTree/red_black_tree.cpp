@@ -1,13 +1,9 @@
 #include "red_black_tree.h"
 
 template <typename Type>
-RBTree<Type>::RBTree()
-{
-}
+RBTree<Type>::RBTree() {}
 template <typename Type>
-RBTree<Type>::~RBTree()
-{
-}
+RBTree<Type>::~RBTree() {}
 // template <typename Type>
 // bool RBTree<Type>::Insert(const Type& value)
 // {
@@ -19,8 +15,7 @@ RBTree<Type>::~RBTree()
 // }
 
 template <typename Type>
-void RBTree<Type>::Insert(RBTreeNode<Type>* z)
-{
+void RBTree<Type>::Insert(RBTreeNode<Type>* z) {
     RBTreeNode<Type>* y = Nil;
     RBTreeNode<Type>* x = root;
     while (x != Nil) {
@@ -46,8 +41,7 @@ void RBTree<Type>::Insert(RBTreeNode<Type>* z)
 }
 
 template <typename Type>
-void RBTree<Type>::InsertFixUp(RBTreeNode<Type>* z)
-{
+void RBTree<Type>::InsertFixUp(RBTreeNode<Type>* z) {
     while (z->parent->color == RED) {
         if (z->parent == z->parent->parent->left) {
             RBTreeNode<Type>* y = z->parent->parent->right;
@@ -88,8 +82,7 @@ void RBTree<Type>::InsertFixUp(RBTreeNode<Type>* z)
 //    / \
 //   yl  yr
 template <typename Type>
-void RBTree<Type>::LeftRotate(RBTreeNode<Type>* x)
-{
+void RBTree<Type>::LeftRotate(RBTreeNode<Type>* x) {
     RBTreeNode<Type>* y = x->right;
     x->right = y->left;
     if (y->left != Nil) {
@@ -115,8 +108,7 @@ void RBTree<Type>::LeftRotate(RBTreeNode<Type>* x)
 //    / \
 //   yl  yr
 template <typename Type>
-void RBTree<Type>::RightRotate(RBTreeNode<Type>* x)
-{
+void RBTree<Type>::RightRotate(RBTreeNode<Type>* x) {
     RBTreeNode<Type>* y = x->left;
     x->left = y->right;
     if (y->right != Nil) {
@@ -137,11 +129,7 @@ void RBTree<Type>::RightRotate(RBTreeNode<Type>* x)
 }
 
 template <typename Type>
-void RBTree<Type>::Remove(RBTreeNode<Type>* z)
-{
-
-}
-int main()
-{
+void RBTree<Type>::Remove(RBTreeNode<Type>* z) {}
+int main() {
     return 0;
 }

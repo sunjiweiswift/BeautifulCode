@@ -8,27 +8,11 @@ struct TreeNode {
     int val;
     TreeNode* left;
     TreeNode* right;
-    TreeNode()
-        : val(0)
-        , left(nullptr)
-        , right(nullptr)
-    {
-    }
-    TreeNode(int x)
-        : val(x)
-        , left(nullptr)
-        , right(nullptr)
-    {
-    }
-    TreeNode(int x, TreeNode* left, TreeNode* right)
-        : val(x)
-        , left(left)
-        , right(right)
-    {
-    }
+    TreeNode() : val(0), left(nullptr), right(nullptr) {}
+    TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+    TreeNode(int x, TreeNode* left, TreeNode* right) : val(x), left(left), right(right) {}
 };
-TreeNode* PreOrderBuild(vector<int>& arr, int i)
-{
+TreeNode* PreOrderBuild(vector<int>& arr, int i) {
     if (i >= arr.size()) {
         return nullptr;
     }
@@ -39,8 +23,7 @@ TreeNode* PreOrderBuild(vector<int>& arr, int i)
     return root;
 }
 
-void PreOrderStack(TreeNode* root)
-{
+void PreOrderStack(TreeNode* root) {
     if (root == nullptr) {
         return;
     }
@@ -60,8 +43,7 @@ void PreOrderStack(TreeNode* root)
     }
 }
 
-void PreOrder(TreeNode* root)
-{
+void PreOrder(TreeNode* root) {
     if (root == nullptr) {
         return;
     }
@@ -70,8 +52,7 @@ void PreOrder(TreeNode* root)
     PreOrder(root->right);
 }
 
-TreeNode* InOrderBuild(vector<int>& arr, int i)
-{
+TreeNode* InOrderBuild(vector<int>& arr, int i) {
     if (i >= arr.size()) {
         return nullptr;
     }
@@ -82,8 +63,7 @@ TreeNode* InOrderBuild(vector<int>& arr, int i)
     return root;
 }
 
-void InOrderStack(TreeNode* root)
-{
+void InOrderStack(TreeNode* root) {
     if (root == nullptr) {
         return;
     }
@@ -101,8 +81,7 @@ void InOrderStack(TreeNode* root)
     }
 }
 
-void InOrder(TreeNode* root)
-{
+void InOrder(TreeNode* root) {
     if (root == nullptr) {
         return;
     }
@@ -112,8 +91,7 @@ void InOrder(TreeNode* root)
     InOrder(root->right);
 }
 
-void PostOrderStack(TreeNode* root)
-{
+void PostOrderStack(TreeNode* root) {
     if (root == nullptr) {
         return;
     }
@@ -138,8 +116,7 @@ void PostOrderStack(TreeNode* root)
     }
 }
 
-void PostOrder(TreeNode* root)
-{
+void PostOrder(TreeNode* root) {
     if (root == nullptr) {
         return;
     }
@@ -148,9 +125,8 @@ void PostOrder(TreeNode* root)
     cout << root->val << endl;
 }
 
-int main()
-{
-    vector<int> arr { 1, 2, 3, 4, 5, 6 };
+int main() {
+    vector<int> arr{1, 2, 3, 4, 5, 6};
     //       1
     //      / \
     //     2   3

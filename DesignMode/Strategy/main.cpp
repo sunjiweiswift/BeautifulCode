@@ -1,7 +1,6 @@
 #include "context.h"
 
-int main()
-{
+int main() {
     Strategy* strategyA = new ConcreteStrategyA();
     Context* context = new Context();
     context->SetStrategy(strategyA);

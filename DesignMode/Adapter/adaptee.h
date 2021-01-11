@@ -5,10 +5,7 @@
 
 class Adaptee {
 public:
-    void SpecificRequest()
-    {
-        std::cout << "Adaptee SpecificRequest" << std::endl;
-    }
+    void SpecificRequest() { std::cout << "Adaptee SpecificRequest" << std::endl; }
 };
 
 #endif

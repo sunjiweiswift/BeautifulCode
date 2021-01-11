@@ -6,15 +6,9 @@
 
 class Adapter : public Target {
 public:
-    Adapter(Adaptee* adaptee)
-        : adaptee_(adaptee)
-    {
-    }
+    Adapter(Adaptee* adaptee) : adaptee_(adaptee) {}
 
-    void Request()
-    {
-        adaptee_->SpecificRequest();
-    }
+    void Request() { adaptee_->SpecificRequest(); }
 
 private:
     Adaptee* adaptee_;

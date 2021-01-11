@@ -1,19 +1,10 @@
 #ifndef RED_BLACH_H
 #define RED_BLACH_H
-typedef enum {
-    RED = 0,
-    BLACK
-} Color;
+typedef enum { RED = 0, BLACK } Color;
 template <typename Type>
 class RBTreeNode {
 public:
-    RBTreeNode(Type key)
-        : left(nullptr)
-        , right(nullptr)
-        , parent(nullptr)
-        , key(key)
-    {
-    }
+    RBTreeNode(Type key) : left(nullptr), right(nullptr), parent(nullptr), key(key) {}
 
 public:
     Color color;
@@ -38,6 +29,6 @@ protected:
 
 private:
     RBTreeNode<Type>* root; // root node
-    RBTreeNode<Type>* Nil; // Exetern node
+    RBTreeNode<Type>* Nil;  // Exetern node
 };
 #endif

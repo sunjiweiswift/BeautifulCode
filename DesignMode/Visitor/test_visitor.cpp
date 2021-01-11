@@ -1,9 +1,8 @@
-#include "object_structure.h"
 #include "concrete_element.h"
 #include "concrete_visitor.h"
+#include "object_structure.h"
 
-int main()
-{
+int main() {
     ObjectStructure* object = new ObjectStructure;
 
     ConcreteElementA* elementA = new ConcreteElementA("ConcreteElementA");

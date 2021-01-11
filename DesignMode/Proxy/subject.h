@@ -5,16 +5,13 @@
 
 class Subject {
 public:
-    virtual ~Subject() { }
+    virtual ~Subject() {}
     virtual void Request() = 0;
 };
 
 class RealSubJect : public Subject {
 public:
-    void Request() override
-    {
-        std::cout << "Real Request" << std::endl;
-    }
+    void Request() override { std::cout << "Real Request" << std::endl; }
 };
 
 #endif

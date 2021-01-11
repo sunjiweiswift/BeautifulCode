@@ -6,8 +6,7 @@
 
 class String {
 public:
-    String(const char* str = nullptr)
-    {
+    String(const char* str = nullptr) {
         if (str == nullptr) {
             length_ = 0;
             data_ = new char[1];
@@ -18,21 +17,18 @@ public:
             strcpy(data_, str);
         }
     }
-    String(const String& other)
-    {
+    String(const String& other) {
         this->length_ = other.Size();
         this->data_ = new char[length_ + 1];
         strcpy(this->data_, other.c_str());
     }
-    ~String()
-    {
+    ~String() {
         delete[] data_;
         data_ = nullptr;
         length_ = 0;
     }
 
-    String operator+(const String& str) const
-    {
+    String operator+(const String& str) const {
         String newString;
         newString.length_ = length_ + str.Size();
         newString.data_ = new char[newString.length_ + 1];
@@ -41,8 +37,7 @@ public:
         return newString;
     }
 
-    String& operator=(const String& other)
-    {
+    String& operator=(const String& other) {
         if (this == &other) {
             return *this;
         }
@@ -53,8 +48,7 @@ public:
         return *this;
     }
 
-    String& operator+=(const String& str)
-    {
+    String& operator+=(const String& str) {
         length_ += str.Size();
         char* newData = new char[length_ + 1];
         strcpy(newData, data_);
@@ -65,8 +59,7 @@ public:
     }
 
     //重载==
-    bool operator==(const String& other) const
-    {
+    bool operator==(const String& other) const {
         if (length_ != other.length_) {
             return false;
         }
@@ -83,14 +76,8 @@ public:
         }
     }
 
-    size_t Size() const
-    {
-        return this->length_;
-    }
-    const char* c_str() const
-    {
-        return data_;
-    }
+    size_t Size() const { return this->length_; }
+    const char* c_str() const { return data_; }
 
 private:
     char* data_;

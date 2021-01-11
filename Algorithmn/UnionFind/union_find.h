@@ -11,14 +11,12 @@ class UnionFind {
 public:
     UnionFind() = default;
 
-    ~UnionFind()
-    {
+    ~UnionFind() {
         parent_.clear();
         rank_.clear();
     }
 
-    void Union(T a, T b)
-    {
+    void Union(T a, T b) {
         if (parent_.find(a) == parent_.end()) {
             parent_[a] = a;
         }
@@ -40,18 +38,14 @@ public:
         }
     }
 
-    T Find(T son)
-    {
+    T Find(T son) {
         if (parent_[son] != son) {
             parent_[son] = Find(son);
         }
         return parent_[son];
     }
 
-    bool isConnected(T a, T b)
-    {
-        return Find(a) == Find(b);
-    }
+    bool isConnected(T a, T b) { return Find(a) == Find(b); }
 
 private:
     unordered_map<T, T> parent_;

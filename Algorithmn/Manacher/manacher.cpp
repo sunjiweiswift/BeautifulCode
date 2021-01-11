@@ -4,8 +4,7 @@
 // https://www.cnblogs.com/fan1-happy/p/11166182.html
 using namespace std;
 
-int Manacher(string& input)
-{
+int Manacher(string& input) {
     if (input.empty()) {
         return 0;
     }
@@ -34,8 +33,7 @@ int Manacher(string& input)
     }
     return maxLength;
 }
-int main()
-{
+int main() {
     string input = "abcbbabbc";
     cout << Manacher(input) << endl;
     return 0;

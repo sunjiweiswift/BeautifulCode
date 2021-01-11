@@ -24,8 +24,7 @@
 //     else
 //         return -1;
 // }
-int main()
-{
+int main() {
     const char* s = "hello, huawei";
     const char* p = "huawei";
     // std::cout << KmpSearch(s, p) << std::endl;

@@ -6,8 +6,7 @@
 
 using namespace std;
 
-vector<int> TopSort(vector<pair<int, int>>& graph, vector<int>& nodes)
-{
+vector<int> TopSort(vector<pair<int, int>>& graph, vector<int>& nodes) {
     queue<int> queue;
     map<int, int> indegrees;
     map<int, set<int>> outNodes;
@@ -35,16 +34,16 @@ vector<int> TopSort(vector<pair<int, int>>& graph, vector<int>& nodes)
     }
     return ans;
 }
-int main()
-{
+int main() {
     // 2---->3---->5
     // ^ |         ^
     // |   |       |
     // |     |     |
     // |       |-->|
     // 1---------->4
-    vector<pair<int, int>> graph { pair<int, int>(1, 4), pair<int, int>(1, 2), pair<int, int>(2, 3), pair<int, int>(2, 4), pair<int, int>(3, 5), pair<int, int>(4, 5) };
-    vector<int> nodes { 1, 2, 3, 4, 5 };
+    vector<pair<int, int>> graph{pair<int, int>(1, 4), pair<int, int>(1, 2), pair<int, int>(2, 3),
+                                 pair<int, int>(2, 4), pair<int, int>(3, 5), pair<int, int>(4, 5)};
+    vector<int> nodes{1, 2, 3, 4, 5};
     vector<int> ans = TopSort(graph, nodes);
     for (int i : ans) {
         cout << i << " ";

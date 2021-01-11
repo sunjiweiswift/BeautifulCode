@@ -7,19 +7,10 @@
 template <typename T>
 class BlockingQueue {
 public:
-    BlockingQueue()
-        : mutex_()
-        , notEmpty_()
-        , que_()
-    {
-    }
+    BlockingQueue() : mutex_(), notEmpty_(), que_() {}
 
-    ~BlockingQueue()
-    {
-        que_.clear();
-    }
-    void Push(const T& task)
-    {
+    ~BlockingQueue() { que_.clear(); }
+    void Push(const T& task) {
         {
             std::unique_lock<std::mutex> lock(mutex_);
             que_.push_back(task);
@@ -27,8 +18,7 @@ public:
         notEmpty_.notify_one(); // Out of lock call
     }
 
-    void Push(T&& task)
-    {
+    void Push(T&& task) {
         {
             std::unique_lock<std::mutex> lock(mutex_);
             que_.push_back(std::move(task));
@@ -36,16 +26,14 @@ public:
         notEmpty_.notify_one();
     }
 
-    T Pop()
-    {
+    T Pop() {
         std::unique_lock<std::mutex> lock(mutex_);
         notEmpty_.wait(lock, [this] { return !this->que_.empty(); });
         T task(std::move(que_.front()));
         que_.pop_front();
         return task;
     }
-    size_t Size() const
-    {
+    size_t Size() const {
         std::unique_lock<std::mutex> lock(mutex_);
         return que_.size();
     }

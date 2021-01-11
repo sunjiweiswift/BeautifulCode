@@ -5,25 +5,12 @@ using namespace std;
 struct ListNode {
     int val;
     ListNode* next;
-    ListNode()
-        : val(0)
-        , next(nullptr)
-    {
-    }
-    ListNode(int x)
-        : val(x)
-        , next(nullptr)
-    {
-    }
-    ListNode(int x, ListNode* next)
-        : val(x)
-        , next(next)
-    {
-    }
+    ListNode() : val(0), next(nullptr) {}
+    ListNode(int x) : val(x), next(nullptr) {}
+    ListNode(int x, ListNode* next) : val(x), next(next) {}
 };
 
-ListNode* RemoveNthNode(ListNode* head, int n)
-{
+ListNode* RemoveNthNode(ListNode* head, int n) {
     if (head == nullptr || n == 0) {
         return nullptr;
     }
@@ -44,8 +31,7 @@ ListNode* RemoveNthNode(ListNode* head, int n)
     return newHead;
 }
 
-int main()
-{
+int main() {
     ListNode* head = new ListNode(0);
     ListNode* pre = head;
     for (size_t i = 1; i < 20; i++) {

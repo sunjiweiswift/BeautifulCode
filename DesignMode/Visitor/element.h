@@ -5,15 +5,9 @@ class Visitor;
 
 class Element {
 public:
-    Element(std::string name)
-        : name_(name)
-    {
-    }
+    Element(std::string name) : name_(name) {}
     virtual void Accept(Visitor* visitor) = 0;
-    const std::string GetName() const
-    {
-        return name_;
-    }
+    const std::string GetName() const { return name_; }
 
 protected:
     std::string name_;
