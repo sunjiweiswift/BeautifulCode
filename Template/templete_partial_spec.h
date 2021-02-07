@@ -2,6 +2,7 @@
 #define TEMPLETE_PATICAL_SPEC
 #include <iostream>
 #include <string>
+
 void Print() {
     std::cout << "End" << std::endl;
 }
