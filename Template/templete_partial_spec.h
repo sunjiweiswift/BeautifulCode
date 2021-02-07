@@ -47,7 +47,6 @@ public:
 };
 
 template <typename... Args>
-
 class CallFunction_<char, Args...> {
 public:
     char operator()(std::string type, Args... args) {
@@ -57,6 +56,7 @@ public:
         return ret;
     }
 };
+
 template <typename R, typename... Args>
 R CallFunction(std::string type, Args... args) {
     return CallFunction_<R, Args...>()(type, std::forward<Args>(args)...);
