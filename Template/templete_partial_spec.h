@@ -1,5 +1,6 @@
 #ifndef TEMPLETE_PATICAL_SPEC
 #define TEMPLETE_PATICAL_SPEC
+
 #include <iostream>
 #include <string>
 
