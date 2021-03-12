@@ -37,6 +37,16 @@ public:
 };
 
 template <typename... Args>
+class CallFunction_<Args...> {
+public:
+    void operator()(std::string type, Args... args) {        
+        std::cout << type << std::endl;
+        Print(args...);
+        ret
+    }
+};
+
+template <typename... Args>
 class CallFunction_<int, Args...> {
 public:
     int operator()(std::string type, Args... args) {
