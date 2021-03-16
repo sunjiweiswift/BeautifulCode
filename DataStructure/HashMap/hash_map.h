@@ -1,5 +1,5 @@
-#ifndef HASHMAP_H
-#define HASHMAP_H
+#ifndef HASH_MAP_H
+#define HASH_MAP_H
 
 template <class Key, class Value>
 class HashNode {
