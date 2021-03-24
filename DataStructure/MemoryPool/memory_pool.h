@@ -15,14 +15,14 @@ public:
     ~MemoryPool() {
         std::lock_guard<std::mutex> lock(mutex_);
         // Destruct automatically
-        MemChunk* ptr;
         while (memChunkHead_) {
-            ptr = memChunkHead_->next;
+            MemChunk* nextPtr = memChunkHead_->next;
             delete memChunkHead_;
-            memChunkHead_ = nullptr;
+            memChunkHead_ = nextPtr;
         }
     }
     void* Allocate() {
+        std::lock_guard<std::mutex> lock(mutex_);
         if (freeBlockHead_ == nullptr) {
             // Malloc MemChunk
             MemChunk* newChunk = new MemChunk;
@@ -38,7 +38,7 @@ public:
                 memChunkHead_ = newChunk;
             } else {
                 // Add newChunk to chunk list
-                memChunkHead_->next = newChunk;
+                newChunk->next = memChunkHead_;
                 memChunkHead_ = newChunk;
             }
         }
@@ -61,7 +61,7 @@ public:
     void Free(void* ptr) {
         std::lock_guard<std::mutex> lock(mutex_);
         // free object memory
-        FreeBlock* block = reinterpret_cast<FreeBlock*>(ptr);
+        FreeBlock* block = static_cast<FreeBlock*>(ptr);
         block->next = freeBlockHead_;
         freeBlockHead_ = block;
     }

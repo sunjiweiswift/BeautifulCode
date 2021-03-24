@@ -34,6 +34,7 @@ int main() {
     std::cout << "object1" << object1 << " " << object1->data << std::endl;
     Object* object2 = new Object(2);
     std::cout << "object2" << object2 << " " << object2->data << std::endl;
+    delete object2;
     Object* object3 = new Object(3);
     std::cout << "object3" << object3 << " " << object3->data << std::endl;
     Object* object4 = new Object(4);
@@ -43,7 +44,7 @@ int main() {
     Object* object6 = new Object(6);
     std::cout << "object6" << object6 << " " << object6->data << std::endl;
     delete object1;
-    delete object2;
+    // delete object2;
     delete object3;
     delete object4;
     delete object5;
