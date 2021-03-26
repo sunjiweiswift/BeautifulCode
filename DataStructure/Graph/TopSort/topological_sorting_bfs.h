@@ -10,8 +10,6 @@
 template <typename T>
 class GraphBFS {
 public:
-    GraphBFS() = default;
-    ~GraphBFS() = default;
     void AddEdge(T a, T b) {
         adj_[a].push_back(b);
         ++indegree_[b];
@@ -21,7 +19,7 @@ public:
     std::vector<T> TopologicalSorting() {
         std::vector<T> result;
         std::queue<T> que;
-        for (auto node : nodes_) {
+        for (const T& node : nodes_) {
             if (indegree_[node] == 0) {
                 que.push(node);
             }
@@ -30,7 +28,7 @@ public:
             T node = que.front();
             que.pop();
             result.push_back(node);
-            for (auto iter : adj_[node]) {
+            for (const T& iter : adj_[node]) {
                 if (--indegree_[iter] == 0) {
                     que.push(iter);
                 }
@@ -39,7 +37,7 @@ public:
         return result;
     }
 
-public:
+private:
     std::unordered_set<T> nodes_;
     std::unordered_map<T, std::list<T> > adj_;
     std::unordered_map<T, int> indegree_;
