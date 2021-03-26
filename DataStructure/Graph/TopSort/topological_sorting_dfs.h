@@ -1,5 +1,5 @@
-#ifndef TOPOLOGICAL_SORTING_BFS_H
-#define TOPOLOGICAL_SORTING_BFS_H
+#ifndef TOPOLOGICAL_SORTING_DFS_H
+#define TOPOLOGICAL_SORTING_DFS_H
 
 #include <list>
 #include <queue>
@@ -8,10 +8,10 @@
 #include <vector>
 
 template <typename T>
-class GraphBFS {
+class GrapgDFS {
 public:
-    GraphBFS() = default;
-    ~GraphBFS() = default;
+    GrapgDFS() = default;
+    ~GrapgDFS() = default;
     void AddEdge(T a, T b) {
         adj_[a].push_back(b);
         ++indegree_[b];
