@@ -39,7 +39,7 @@ public:
 
 private:
     std::unordered_set<T> nodes_;
-    std::unordered_map<T, std::list<T> > adj_;
+    std::unordered_map<T, std::list<T>> adj_;
     std::unordered_map<T, int> indegree_;
 };
 

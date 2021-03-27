@@ -18,35 +18,32 @@ public:
     std::vector<T> TopologicalSorting() {
         std::vector<T> result;
         std::unordered_map<T, bool> visited;
-        for (const T& node : nodes) {
+        for (const T& node : nodes_) {
             visited[node] = false;
         }
-        std::stack<T> stk;
-        for (const T& node : nodes) {
-            DFS(node, visited, stk);
+        for (const T& node : nodes_) {
+            DFS(node, visited);
         }
-        while (!stk.empty()) {
-            result.push_back(stk.top());
-            stk.pop();
-        }
-        return result;
+
+        return result_;
     }
 
 private:
-    void DFS(T node, std::unordered_map<T, bool> visited, std::stack<T> result) {
+    void DFS(T node, std::unordered_map<T, bool> visited) {
         visited[node] = true;
-        for (const T& nextNode = adj_[node]) {
+        result_.push_back(node);
+        for (const T& nextNode : adj_[node]) {
             if (visited[nextNode] == false) {
-                DFS(node, visited, result);
+                DFS(node, visited);
             }
         }
-        result.push_back(node);
     }
 
 private:
     std::unordered_set<T> nodes_;
-    std::unordered_map<T, std::list<T> > adj_;
+    std::unordered_map<T, std::list<T>> adj_;
     std::unordered_map<T, bool> visited_;
+    std::vector<T> result_;
 };
 
 #endif
