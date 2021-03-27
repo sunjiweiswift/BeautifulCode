@@ -1,6 +1,6 @@
 #ifndef TOPOLOGICAL_SORTING_DFS_H
 #define TOPOLOGICAL_SORTING_DFS_H
-
+#include <algorithm>
 #include <list>
 #include <stack>
 #include <unordered_map>
@@ -15,35 +15,37 @@ public:
         nodes_.insert(a);
         nodes_.insert(b);
     }
-    std::vector<T> TopologicalSorting() {
-        std::vector<T> result;
-        std::unordered_map<T, bool> visited;
-        for (const T& node : nodes_) {
-            visited[node] = false;
-        }
-        for (const T& node : nodes_) {
-            DFS(node, visited);
-        }
 
-        return result_;
+    std::vector<T> TopologicalSorting() {
+        for (const T& node : nodes_) {
+            visited_[node] = false;
+        }
+        for (const T& node : nodes_) {
+            if (visited_[node] == false) {
+                DFS(node);
+            }
+        }
+        std::vector<T> result = postOrder_;
+        std::reverse(result.begin(), result.end());
+        return result;
     }
 
 private:
-    void DFS(T node, std::unordered_map<T, bool> visited) {
-        visited[node] = true;
-        result_.push_back(node);
+    void DFS(T node) {
+        visited_[node] = true;
         for (const T& nextNode : adj_[node]) {
-            if (visited[nextNode] == false) {
-                DFS(node, visited);
+            if (visited_[nextNode] == false) {
+                DFS(nextNode);
             }
         }
+        postOrder_.push_back(node);
     }
 
 private:
     std::unordered_set<T> nodes_;
     std::unordered_map<T, std::list<T>> adj_;
     std::unordered_map<T, bool> visited_;
-    std::vector<T> result_;
+    std::vector<T> postOrder_;
 };
 
 #endif
