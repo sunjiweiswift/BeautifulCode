@@ -7,7 +7,7 @@ public:
     Stack() : top_(nullptr), size_(0) {}
     ~Stack() { Clear(); }
     void Push(const T& data) {
-        StackNode* newNode = new StackNode(data, top_);
+        top_ = new StackNode(data, top_);
         size_++;
     }
     T Top() const {
@@ -26,7 +26,7 @@ public:
         }
     }
     size_t Size() const { return size_; }
-    bool Empty() const { return size_ > 0 ? true : false; }
+    bool Empty() const { return size_ == 0 ? true : false; }
     void Clear() {
         while (top_) {
             StackNode* tmp = top_;
