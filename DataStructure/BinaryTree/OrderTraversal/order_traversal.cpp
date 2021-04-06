@@ -27,17 +27,17 @@ void PreOrderStack(TreeNode* root) {
     if (root == nullptr) {
         return;
     }
-    stack<TreeNode*> stack;
+    stack<TreeNode*> stk;
     TreeNode* node = root;
-    while (!stack.empty() || node != nullptr) {
+    while (!stk.empty() || node != nullptr) {
         while (node != nullptr) {
             cout << node->val << endl;
-            stack.push(node);
+            stk.push(node);
             node = node->left;
         }
-        if (!stack.empty()) {
-            node = stack.top();
-            stack.pop();
+        if (!stk.empty()) {
+            node = stk.top();
+            stk.pop();
             node = node->right;
         }
     }
@@ -67,14 +67,14 @@ void InOrderStack(TreeNode* root) {
     if (root == nullptr) {
         return;
     }
-    stack<TreeNode*> stack;
-    while (!stack.empty() || root != nullptr) {
+    stack<TreeNode*> stk;
+    while (!stk.empty() || root != nullptr) {
         if (root != nullptr) {
-            stack.push(root);
+            stk.push(root);
             root = root->left;
         } else {
-            root = stack.top();
-            stack.pop();
+            root = stk.top();
+            stk.pop();
             cout << root->val << endl;
             root = root->right;
         }
@@ -94,19 +94,19 @@ void PostOrderStack(TreeNode* root) {
     if (root == nullptr) {
         return;
     }
-    stack<TreeNode*> stack;
+    stack<TreeNode*> stk;
     TreeNode* node = root;
     TreeNode* pre = nullptr;
-    while (!stack.empty() || node != nullptr) {
+    while (!stk.empty() || node != nullptr) {
         if (node != nullptr) {
-            stack.push(node);
+            stk.push(node);
             node = node->left;
         } else {
-            node = stack.top();
+            node = stk.top();
             if (node->right != nullptr && node->right != pre) {
                 node = node->right;
             } else {
-                stack.pop();
+                stk.pop();
                 cout << node->val << endl;
                 pre = node;
                 node = nullptr;
