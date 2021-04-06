@@ -85,7 +85,6 @@ void InOrder(TreeNode* root) {
     if (root == nullptr) {
         return;
     }
-    stack<TreeNode*> stack;
     InOrder(root->left);
     cout << root->val << endl;
     InOrder(root->right);
