@@ -43,6 +43,11 @@ int main(void) {
         }
         printf("\n");
     }
+    cudaFree(A);
+    cudaFree(B);
+    cudaFree(C);
+    free(cpuA);
+    free(cpuB);
     free(cpuC);
     return 0;
 }

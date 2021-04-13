@@ -24,6 +24,7 @@ __global__ void getMidNum(int* input, int size, int k, double* mid) {
         } else {
             mid[index] = tmp[k / 2] / 2.0  + tmp[k - 1] / 2.0;
         }
+        free tmp;
     }
 }
 
@@ -52,6 +53,9 @@ int main(void) {
         printf("%f ", cpuOutput[i]);
     }
     printf("\n");
+    cudaFree(input);
+    cudaFree(output);
+    free(cpuOutput);
     cudaDeviceReset();
     return 0;
 }
