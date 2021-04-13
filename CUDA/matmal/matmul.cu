@@ -46,8 +46,6 @@ int main(void) {
     cudaFree(A);
     cudaFree(B);
     cudaFree(C);
-    free(cpuA);
-    free(cpuB);
     free(cpuC);
     return 0;
 }
