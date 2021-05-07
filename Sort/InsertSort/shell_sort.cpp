@@ -14,7 +14,6 @@ void ShellSort(vector<int>& arr) {
             }
             arr[j + gap] = insertNum;
         }
-
         gap = gap / 2;
     }
 }
