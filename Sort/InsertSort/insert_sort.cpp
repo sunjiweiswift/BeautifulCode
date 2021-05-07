@@ -5,13 +5,13 @@ using namespace std;
 
 void InsertSort(vector<int>& arr) {
     for (size_t i = 1; i < arr.size(); i++) {
-        int num = arr[i];
+        int insertNum = arr[i];
         int j = i - 1;
-        while (j >= 0 && arr[j] > num) {
+        while (j >= 0 && arr[j] > insertNum) {
             arr[j + 1] = arr[j];
             j--;
         }
-        arr[j + 1] = num;
+        arr[j + 1] = insertNum;
     }
 }
 
