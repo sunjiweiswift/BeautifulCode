@@ -4,68 +4,68 @@
 
 using namespace std;
 
-void matMulCPUOpenMP(float* A, float* B, float* C, int aHeight, int aWidth, int bWidth) {
+void matMulCPUOpenMP(float* A, float* B, float* C, int M, int K, int N) {
 #pragma omp parallel for num_threads(16)
-    for (int i = 0; i < aHeight; i++) {
-        for (int j = 0; j < bWidth; j++) {
+    for (int i = 0; i < M; i++) {
+        for (int j = 0; j < N; j++) {
             float sum = 0.0f;
-            for (int k = 0; k < aWidth; k++) {
-                sum += A[i * aWidth + k] * B[k * bWidth + j];
+            for (int k = 0; k < K; k++) {
+                sum += A[i * K + k] * B[k * N + j];
             }
-            C[i * bWidth + j] = sum;
+            C[i * N + j] = sum;
         }
     }
 }
 
-void matMulCPUOpenMPErr(float* A, float* B, float* C, int aHeight, int aWidth, int bWidth) {
-    for (int i = 0; i < aHeight; i++) {
-        for (int j = 0; j < bWidth; j++) {
+void matMulCPUOpenMPErr(float* A, float* B, float* C, int M, int K, int N) {
+    for (int i = 0; i < M; i++) {
+        for (int j = 0; j < N; j++) {
             float sum = 0.0f;
 #pragma omp parallel for num_threads(16)
-            for (int k = 0; k < aWidth; k++) {
-                sum += A[i * aWidth + k] * B[k * bWidth + j];
+            for (int k = 0; k < K; k++) {
+                sum += A[i * K + k] * B[k * N + j];
             }
-            C[i * bWidth + j] = sum;
+            C[i * N + j] = sum;
         }
     }
 }
-void matMulCPU(float* A, float* B, float* C, int aHeight, int aWidth, int bWidth) {
-    for (int i = 0; i < aHeight; i++) {
-        for (int j = 0; j < bWidth; j++) {
-            float sum = 0.0f;
-            for (int k = 0; k < aWidth; k++) {
-                sum += A[i * aWidth + k] * B[k * bWidth + j];
+void matMulCPU(float* A, float* B, float* C, int M, int K, int N) {
+    for (int k = 0; k < K; k++) {
+        for (int i = 0; i < M; i++) {
+            for (int j = 0; j < N; j++) {
+                C[i * N + j] += A[i * K + k] * B[k * N + j];
             }
-            C[i * bWidth + j] = sum;
         }
     }
 }
 
 int main(void) {
-    int aHeight = 512;
-    int aWidth = 512;
-    int bWidth = 512;
+    int M = 512;
+    int K = 512;
+    int N = 512;
 
-    float* A = new float[aHeight * aWidth];
-    float* B = new float[aWidth * bWidth];
-    float* C = new float[aHeight * bWidth];
-    for (int i = 0; i < aHeight * aHeight; i++) {
-        A[i] = rand() / RAND_MAX;
-        B[i] = rand() / RAND_MAX;
+    float* A = new float[M * K];
+    float* B = new float[K * N];
+    float* C = new float[M * N];
+    for (int i = 0; i < M * K; i++) {
+        B[i] = 1;
+    }
+    for (int i = 0; i < K * M; i++) {
+        B[i] = 1;
     }
 
     float dtime = omp_get_wtime();
-    matMulCPU(A, B, C, aHeight, aWidth, bWidth);
+    matMulCPU(A, B, C, M, K, N);
     dtime = omp_get_wtime() - dtime;
     cout << "Running1 Time : " << dtime << endl;
 
     dtime = omp_get_wtime();
-    matMulCPUOpenMP(A, B, C, aHeight, aWidth, bWidth);
+    matMulCPUOpenMP(A, B, C, M, K, N);
     dtime = omp_get_wtime() - dtime;
     cout << "Running2 Time : " << dtime << endl;
 
     dtime = omp_get_wtime();
-    matMulCPUOpenMPErr(A, B, C, aHeight, aWidth, bWidth);
+    matMulCPUOpenMPErr(A, B, C, M, K, N);
     dtime = omp_get_wtime() - dtime;
     cout << "Running3 Time : " << dtime << endl;
 
