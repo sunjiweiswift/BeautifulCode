@@ -29,10 +29,41 @@ void matMulCPUOpenMPErr(float* A, float* B, float* C, int M, int K, int N) {
         }
     }
 }
-void matMulCPU(float* A, float* B, float* C, int M, int K, int N) {
+void matMulCPUOK(float* A, float* B, float* C, int M, int K, int N) {
     for (int k = 0; k < K; k++) {
         for (int i = 0; i < M; i++) {
             for (int j = 0; j < N; j++) {
+                C[i * N + j] += A[i * K + k] * B[k * N + j];
+            }
+        }
+    }
+}
+
+void matMulCPUErr1(float* A, float* B, float* C, int M, int K, int N) {
+    for (int k = 0; k < K; k++) {
+        for (int j = 0; j < N; j++) {
+            for (int i = 0; i < M; i++) { // A read by col
+                C[i * N + j] += A[i * K + k] * B[k * N + j];
+            }
+        }
+    }
+}
+void matMulCPUErr2(float* A, float* B, float* C, int M, int K, int N) {
+    for (int i = 0; i < M; i++) { // outer is not k
+        for (int j = 0; j < N; j++) {
+            float sum = 0.0f;
+            for (int k = 0; k < K; k++) {
+                sum += A[i * K + k] * B[k * N + j];
+            }
+            C[i * N + j] = sum;
+        }
+    }
+}
+
+void matMulCPUErr2(float* A, float* B, float* C, int M, int K, int N) {
+    for (int i = 0; i < M; i++) { // outer is not k
+        for (int j = 0; j < N; j++) {
+            for (int k = 0; k < K; k++) { // every step need to modify C
                 C[i * N + j] += A[i * K + k] * B[k * N + j];
             }
         }
