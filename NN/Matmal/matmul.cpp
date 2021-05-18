@@ -79,7 +79,7 @@ int main(void) {
     float* B = new float[K * N];
     float* C = new float[M * N];
     for (int i = 0; i < M * K; i++) {
-        B[i] = 1;
+        A[i] = 1;
     }
     for (int i = 0; i < K * M; i++) {
         B[i] = 1;
