@@ -86,7 +86,7 @@ int main(void) {
     }
 
     float dtime = omp_get_wtime();
-    matMulCPU(A, B, C, M, K, N);
+    matMulCPUOK(A, B, C, M, K, N);
     dtime = omp_get_wtime() - dtime;
     cout << "Running1 Time : " << dtime << endl;
 
