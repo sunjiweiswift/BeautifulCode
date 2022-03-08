@@ -26,6 +26,34 @@ bool HasCycle(ListNode* head) {
     return false;
 }
 
+ListNode* FindCycleStart(ListNode* head) {
+    if (head == nullptr) {
+        return nullptr;
+    }
+    ListNode* fast = head;
+    ListNode* slow = head;
+    while (fast != nullptr) {
+        fast = fast->next;
+        if (fast == nullptr) {
+            return nullptr;
+        }
+        fast = fast->next;
+        slow = slow->next;
+        if (fast == slow) {
+            break;
+        }
+    }
+    if (fast == nullptr) {
+        return nullptr;
+    }
+    slow = head;
+    while (fast != slow) {
+        fast = fast->next;
+        slow = slow->next;
+    }
+    return fast;
+}
+
 int main() {
     ListNode* head = new ListNode(0);
     ListNode* pre = head;
