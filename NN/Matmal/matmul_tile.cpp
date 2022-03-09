@@ -1,4 +1,6 @@
+#include <assert.h>
 #include <omp.h>
+#include <sys/time.h>
 
 #include <iostream>
 #include <vector>
@@ -204,6 +206,7 @@ int main(void) {
     int M = 512;
     int K = 2048;
     int N = 512;
+    struct timeval start, end;
 
     vector<float> A(M * K);
     vector<float> B(K * N);
@@ -215,28 +218,32 @@ int main(void) {
     }
 
     vector<float> C1(M * N);
-    float dtime = omp_get_wtime();
+    gettimeofday(&start, NULL);
     matMulCPU1(A.data(), B.data(), C1.data(), M, K, N);
-    dtime = omp_get_wtime() - dtime;
-    cout << "Running1 Time : " << dtime << endl;
+    gettimeofday(&end, NULL);
+
+    cout << "Running1 Time : "
+         << ((end.tv_sec - start.tv_sec) * 1000000 + (end.tv_usec - start.tv_usec)) << " us"
+         << endl;
 
     vector<float> C2(M * N);
-    dtime = omp_get_wtime();
+    gettimeofday(&start, NULL);
     matMulCPUTileJ(A.data(), B.data(), C2.data(), M, K, N);
-    dtime = omp_get_wtime() - dtime;
-    cout << "Running2 Time : " << dtime << endl;
+    gettimeofday(&end, NULL);
+    cout << "Running2 Time : "
+         << ((end.tv_sec - start.tv_sec) * 1000000 + (end.tv_usec - start.tv_usec)) << " us"
+         << endl;
 
     vector<float> C3(M * N);
-    dtime = omp_get_wtime();
+    gettimeofday(&start, NULL);
     matMulCPUTileJK(A.data(), B.data(), C3.data(), M, K, N);
-    dtime = omp_get_wtime() - dtime;
-    cout << "Running2 Time : " << dtime << endl;
+    gettimeofday(&end, NULL);
+    cout << "Running3 Time : "
+         << ((end.tv_sec - start.tv_sec) * 1000000 + (end.tv_usec - start.tv_usec)) << " us"
+         << endl;
 
-    if (C1 == C2 && C1 == C3) {
-        cout << "correct" << endl;
-    } else {
-        cout << "error" << endl;
-    }
+    assert(C1 == C2 && C1 == C3);
+    cout << "correct" << endl;
 
     return 0;
 }
