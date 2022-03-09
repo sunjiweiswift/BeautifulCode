@@ -20,7 +20,7 @@ void matMulCPUTileJ(float* A, float* B, float* C, int M, int K, int N) {
     for (int j1 = 0; j1 < N; j1 += tj) {
         for (int i = 0; i < M; i++) {
             for (int k = 0; k < K; k++) {
-                for (int j2 = 0; j2 < tj; j2++) {
+                for (int j2 = j1; j2 < j1 + tj; j2++) {
                     C[i * N + j2] += A[i * K + k] * B[k * N + j2];
                 }
             }
@@ -33,9 +33,9 @@ void matMulCPUTileJK(float* A, float* B, float* C, int M, int K, int N) {
     for (int k1 = 0; k1 < K; k1 += tk) {
         for (int j1 = 0; j1 < N; j1 += tj) {
             for (int i = 0; i < M; i++) {
-                for (int k2 = 0; k2 < tk; k++) {
-                    for (int j2 = 0; j2 < tj; j2++) {
-                        C[i * N + j2] += A[i * K + k] * B[k * N + j2];
+                for (int k2 = k1; k2 < k1 + tk; k2++) {
+                    for (int j2 = j1; j2 < j1 + tj; j2++) {
+                        C[i * N + j2] += A[i * K + k2] * B[k2 * N + j2];
                     }
                 }
             }
@@ -222,23 +222,17 @@ int main(void) {
 
     vector<float> C2(M * N);
     dtime = omp_get_wtime();
-    matMulCPU2(A.data(), B.data(), C2.data(), M, K, N);
+    matMulCPUTileJ(A.data(), B.data(), C2.data(), M, K, N);
     dtime = omp_get_wtime() - dtime;
     cout << "Running2 Time : " << dtime << endl;
 
     vector<float> C3(M * N);
     dtime = omp_get_wtime();
-    matMulCPU3(A.data(), B.data(), C3.data(), M, K, N);
+    matMulCPUTileJK(A.data(), B.data(), C3.data(), M, K, N);
     dtime = omp_get_wtime() - dtime;
-    cout << "Running3 Time : " << dtime << endl;
+    cout << "Running2 Time : " << dtime << endl;
 
-    vector<float> C4(M * N);
-    dtime = omp_get_wtime();
-    matMulCPU4(A.data(), B.data(), C4.data(), M, K, N);
-    dtime = omp_get_wtime() - dtime;
-    cout << "Running4 Time : " << dtime << endl;
-
-    if (C1 == C2 && C1 == C3 && C1 == C4) {
+    if (C1 == C2 && C1 == C3) {
         cout << "correct" << endl;
     } else {
         cout << "error" << endl;
