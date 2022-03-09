@@ -27,6 +27,21 @@ void matMulCPUTileJ(float* A, float* B, float* C, int M, int K, int N) {
         }
     }
 }
+void matMulCPUTileJK(float* A, float* B, float* C, int M, int K, int N) {
+    int tj = 4;
+    int tk = 4;
+    for (int k1 = 0; k1 < K; k1 += tk) {
+        for (int j1 = 0; j1 < N; j1 += tj) {
+            for (int i = 0; i < M; i++) {
+                for (int kj = 0; k < tk; k++) {
+                    for (int j2 = 0; j2 < tj; j2++) {
+                        C[i * N + j2] += A[i * K + k] * B[k * N + j2];
+                    }
+                }
+            }
+        }
+    }
+}
 
 inline void addDot(int M, int N, int K, float* A, float* B, float* C) {
     for (int k = 0; k < K; k++) {
