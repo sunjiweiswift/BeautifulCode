@@ -15,6 +15,19 @@ void matMulCPU1(float* A, float* B, float* C, int M, int K, int N) {
     }
 }
 
+void matMulCPUTileJ(float* A, float* B, float* C, int M, int K, int N) {
+    int tj = 4;
+    for (int j1 = 0; j1 < N; j1 += tj) {
+        for (int i = 0; i < M; i++) {
+            for (int k = 0; k < K; k++) {
+                for (int j2 = 0; j2 < tj; j2++) {
+                    C[i * N + j2] += A[i * K + k] * B[k * N + j2];
+                }
+            }
+        }
+    }
+}
+
 inline void addDot(int M, int N, int K, float* A, float* B, float* C) {
     for (int k = 0; k < K; k++) {
         *C += A[k] * B[k * N];
@@ -209,7 +222,6 @@ int main(void) {
     matMulCPU4(A.data(), B.data(), C4.data(), M, K, N);
     dtime = omp_get_wtime() - dtime;
     cout << "Running4 Time : " << dtime << endl;
-
 
     if (C1 == C2 && C1 == C3 && C1 == C4) {
         cout << "correct" << endl;
