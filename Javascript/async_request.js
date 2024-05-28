@@ -1,54 +1,46 @@
-function Request(urls, maxNum) {
-  let successCount = 0;
-  let errorCount = 0;
-  const queue = urls.slice(); // 创建任务队列
-  let activeCount = 0; // 当前正在进行的请求数
-  let results = []; // 存储请求结果
+function concurrentRequest(urls, maxNum) {
+  const pending = []; // 存储正在进行的请求
+  const results = []; // 存储请求结果
 
   return new Promise((resolve, reject) => {
     function next() {
-      if (queue.length === 0 && activeCount === 0) {
-        resolve(results);
-        console.log(`Success: ${successCount}`);
-        console.log(`Errors: ${errorCount}`);
-        return;
-      }
-
-      if (activeCount < maxNum) {
-        const url = queue.shift();
-        activeCount++;
+      if (pending.length < maxNum && urls.length > 0) {
+        const url = urls.shift();
 
         fetch(url)
           .then(response => response.json())
           .then(data => {
             results.push(data);
-            successCount++;
-            activeCount--;
+            pending.splice(pending.indexOf(url), 1);
             next();
+
+            if (urls.length === 0 && pending.length === 0) {
+              resolve(results);
+            }
           })
           .catch(error => {
             reject(error);
-            activeCount--;
-            errorCount++;
-            next();
           });
+
+        pending.push(url);
       }
     }
 
-    next();
+    while (urls.length > 0) {
+      next();
+    }
   });
-
 }
 
-// Example usage
+// 示例用法
 const urls = [
-  'https://jsonplaceholder.typicode.com/posts/1',
-  'https://jsonplaceholder.typicode.com/posts/2',
-  'https://jsonplaceholder.typicode.com/posts/3',
-  'https://jsonplaceholder.typicode.com/posts/4',
-  'https://jsonplaceholder.typicode.com/posts/5',
-  'https://jsonplaceholder.typicode.com/posts/6',
-  'https://jsonplaceholder.typicode.com/posts/7',
+  'https://jsonplaceholder.typicode.com/todos/1',
+  'https://jsonplaceholder.typicode.com/todos/2',
+  'https://jsonplaceholder.typicode.com/todos/3',
 ];
 
-Request(urls, 3).then(console.log);
+const maxNum = 2; // 最大并发数为 2
+
+concurrentRequest(urls, maxNum)
+  .then(results => console.log(results))
+  .catch(error => console.error(error));
